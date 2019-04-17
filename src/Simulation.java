@@ -1,11 +1,16 @@
 import Components.PipelineRegister;
+import Stages.Decode;
+import Stages.Execute;
+import Stages.Fetch;
+import Stages.Memory;
+import Stages.WriteBack;
 
 public class Simulation {
 
-	private FetchStage fetch;
-	private DecodeStage decode;
-	private ExecuteStage exexute;
-	private MemoryWrite memoryW;
+	private Fetch fetch;
+	private Decode decode;
+	private Execute exexute;
+	private Memory memoryW;
 	private WriteBack WB;
 	private PipelineRegister IF_ID;
 	private PipelineRegister ID_EX;
@@ -22,7 +27,7 @@ public class Simulation {
 			execute.run();
 			memoryW.run();
 			WB.run();			
-		}
+		}	
 	}
 	 
 	
