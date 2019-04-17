@@ -1,17 +1,20 @@
+import Components.PipelineRegister;
 
 public class Simulation {
 
-//	private HashMap <String,Integer> registers;
 	private FetchStage fetch;
 	private DecodeStage decode;
 	private ExecuteStage exexute;
 	private MemoryWrite memoryW;
 	private WriteBack WB;
-	private PipelinneRegister IF_ID;
-	private PipeLinneRegister ID_EX;
-	private PipeLinneRegister EX_MEM;
-	private PipeLinneRegister MEM_WB;
-	
+	private PipelineRegister IF_ID;
+	private PipelineRegister ID_EX;
+	private PipelineRegister EX_MEM;
+	private PipelineRegister MEM_WB;
+
+	public Simulation() {
+		//initiate variables
+	}
 	void run() {
 		while(hasMoreInstruction()) {
 			fetch.run();
