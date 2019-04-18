@@ -9,7 +9,7 @@ public class Fetch implements Runnable {
 	int instructionAddress;
 	String instruction;
 	
-	public Fetch(Memory memory, PipelineRegister prev) {
+	public Fetch(Memory memory, PipelineRegister next) {
 		this.next=next;
 		instructionMemory= memory;
 		instructionAddress=-4;
