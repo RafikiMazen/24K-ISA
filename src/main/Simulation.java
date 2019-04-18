@@ -1,4 +1,6 @@
+package main;
 import Components.PipelineRegister;
+import Components.RegisterFile;
 import Stages.Decode;
 import Stages.Execute;
 import Stages.Fetch;
@@ -8,6 +10,7 @@ import Stages.WriteBack;
 public class Simulation {
 	private Memory dataMemory;
 	private Memory instructionMemory;
+	private RegisterFile registers;
 	private Fetch fetch;
 	private Decode decode;
 	private Execute execute;
@@ -25,20 +28,26 @@ public class Simulation {
 		MEM_WB = new PipelineRegister(4);
 		dataMemory = new Memory("data");
 		instructionMemory = new Memory("instruction");
+		registers = new RegisterFile();
+
 	}
 	void run() {
 		while(fetch.hasMoreInstruction()) {
-			fetch.run();
-			decode.run();
+			fetch.run(instructionMemory);
+			decode.run(registers);
 			execute.run();
 			memoryW.run();
-			WB.run();			
+			WB.run();		
+			IF_ID.updateValues();
+			ID_EX.updateValues();
+			EX_MEM.updateValues();
+			MEM_WB.updateValues();
 		}	
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println("This is 24K wa elhag 3abdo Welcoming you to the Simulation");
 	}
-	 
-	
+
+
 }

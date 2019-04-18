@@ -1,10 +1,11 @@
 package Stages;
 
+import main.Memory;
 
 public class Fetch {
-	private MemoryAccess instructionMemory;
+	private Memory instructionMemory;
 	
-	public Fetch(MemoryAccess memory) {
+	public Fetch(Memory memory) {
 		instructionMemory= memory;
 	}
 	
