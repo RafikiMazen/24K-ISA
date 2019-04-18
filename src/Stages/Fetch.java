@@ -5,12 +5,12 @@ import main.Memory;
 
 public class Fetch implements Runnable {
 	private Memory instructionMemory;
-	private PipelineRegister prev;
+	private PipelineRegister next;
 	int instructionAddress;
 	String instruction;
 	
 	public Fetch(Memory memory, PipelineRegister prev) {
-		this.prev=prev;
+		this.next=next;
 		instructionMemory= memory;
 		instructionAddress=-4;
 		instruction="";
@@ -23,7 +23,7 @@ public class Fetch implements Runnable {
 	public void run () {
 		instructionAddress+=4;
 		instruction=instructionMemory.readFromIndex(instructionAddress);
-		prev.updateValues(this);
+		next.updateValues(this);
 		
 	}
 
@@ -34,7 +34,7 @@ public class Fetch implements Runnable {
 	public String getInstruction() {
 		return instruction;
 	}
-//TODO
+//TODO missing logic in has moreInstructions
 	public boolean hasMoreInstruction() {
 		if(instructionAddress/4>=instructionMemory.getInstructions() )
 			return true;
