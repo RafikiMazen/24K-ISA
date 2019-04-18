@@ -1,7 +1,5 @@
 package Stages;
-
 import Components.PipelineRegister;
-import Components.Register;
 import Components.RegisterFile;
 
 public class Decode implements Runnable {
@@ -35,64 +33,64 @@ public class Decode implements Runnable {
 		switch (Opcode) {
 		case ("00000"):
 		case ("00001"):
-			next.setRegister("R1", instruction.substring(5, 10));
-			next.setRegister("R2", instruction.substring(10, 15));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
+			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
 			break;
 		case ("00010"):
 		case ("00011"):
-			next.setRegister("R1", instruction.substring(5, 10));
-			next.setRegister("R2", instruction.substring(10, 15));
-			next.setRegister("R3", instruction.substring(15, 20));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
+			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
+			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15, 20)));
 			break;
 		case ("00100"):
 		case ("00101"):
 		case ("00110"):
-			next.setRegister("R1", instruction.substring(5, 10));
-			next.setRegister("Immediate", instruction.substring(10));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
+			next.setRegister("Immediate", regFile.getFromRegsbyBits(instruction.substring(10)));
 		case ("00111"):
 		case ("01000"):
 		case ("01001"):
 		case ("01010"):
-			next.setRegister("R1", instruction.substring(5, 10));
-			next.setRegister("R2", instruction.substring(10, 15));
-			next.setRegister("R3", instruction.substring(15, 20));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
+			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
+			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15, 20)));
 			break;
 		case ("01100"):
-			next.setRegister("R1", instruction.substring(5, 10));
-			next.setRegister("R2", instruction.substring(10, 15));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
+			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
 			break;
 		case ("01101"):
-			next.setRegister("R1", instruction.substring(5, 10));
-			next.setRegister("R2", instruction.substring(10, 15));
-			next.setRegister("R3", instruction.substring(15, 20));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
+			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
+			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15, 20)));
 			break;
 		case ("01110"):
-			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
 			break;
 		case ("10000"):
-			next.setRegister("R1", instruction.substring(5, 10));
-			next.setRegister("R2", instruction.substring(10, 15));
-			next.setRegister("R3", instruction.substring(15, 20));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
+			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
+			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15, 20)));
 			break;
 		case ("10001"):
-			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
 			break;
 		case ("10010"):
-			next.setRegister("R1", instruction.substring(5, 10));
-			next.setRegister("R2", instruction.substring(10, 15));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
+			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
 			break;
 		case ("10011"):
-			next.setRegister("rsd", instruction.substring(5, 10));
+			next.setRegister("rsd", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
 			break;
 		case ("10100"):
-			next.setRegister("R1", instruction.substring(5, 10));
-			next.setRegister("R2", instruction.substring(10, 15));
-			next.setRegister("R3", instruction.substring(15));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
+			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
+			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15)));
 			break;
 		case ("10101"):
-			next.setRegister("R1", instruction.substring(5, 10));
-			next.setRegister("R2", instruction.substring(10, 15));
-			next.setRegister("R3", instruction.substring(15));
+			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
+			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
+			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15)));
 			break;
 		}
 	}
