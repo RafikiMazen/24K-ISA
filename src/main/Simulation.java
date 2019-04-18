@@ -40,7 +40,7 @@ public class Simulation {
 			execute.run();
 			memoryW.run();
 			WB.run();		
-			IF_ID.updateValues();
+			IF_ID.updateValues(fetch);
 			ID_EX.updateValues();
 			EX_MEM.updateValues();
 			MEM_WB.updateValues();

@@ -3,13 +3,16 @@ package Components;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import Stages.Fetch;
+
 public class PipelineRegister {
 	int type ;
 	HashMap<String,String> registers;
 	
 	public PipelineRegister(int type) {
 		if(type==1) {
-//			setup registers for first step
+			registers.put("PC", "");
+			registers.put("IR", "");
 		}
 		if(type==2) {
 //			setup registers for first step
@@ -23,7 +26,17 @@ public class PipelineRegister {
 	}
 	
 	public void setRegister(String reg,String value) {
-		
+		registers.replace(reg, value);
+	}
+	
+	public void updateValues(Fetch fetch){
+		if(type==1) {
+		registers.replace("PC", Integer.toBinaryString(fetch.getInstructionAddress()));
+		registers.replace("IR", fetch.getInstruction());
+		}
+		if(type==2) {
+			
+		}
 	}
 	
 	public String readRegister(String reg) {

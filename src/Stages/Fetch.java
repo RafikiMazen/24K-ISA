@@ -1,27 +1,30 @@
 package Stages;
 
-import Components.RegisterFile;
 import main.Memory;
 
 public class Fetch {
 	private Memory instructionMemory;
-	private RegisterFile regFile;
-	int instruction;
+	int instructionAddress;
+	String instruction;
 	
 	public Fetch(Memory memory) {
 		instructionMemory= memory;
-		instruction=0;
+		instructionAddress=-4;
+		instruction="";
 	}
 	
 	public void run () {
-		if(instruction==0)
-			instruction = regFile.getFromRegs("PC");
-		regFile.setaRegs("IR", instruction);
-		regFile.setaRegs("PC", instruction+4);
+		instructionAddress+=4;
+		instruction=instructionMemory.readFromIndex(instructionAddress);
+		
 		//update pipeline
 	}
 
-	public int getInstruction() {
+	public int getInstructionAddress() {
+		return instructionAddress;
+	}
+
+	public String getInstruction() {
 		return instruction;
 	}
 

@@ -2,7 +2,7 @@ package Components;
 
 public class Register {
 	String name;
-	int value;
+	String value;
 	int size;
 	int index;
 	
@@ -12,10 +12,10 @@ public class Register {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getValue() {
+	public String getValue() {
 		return value;
 	}
-	public void setValue(int value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 }

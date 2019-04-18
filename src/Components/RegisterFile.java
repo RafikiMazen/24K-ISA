@@ -11,14 +11,14 @@ public class RegisterFile {
 		//TODO Create all registers and add them 
 	}
 	
-	public int getFromRegs(String name) {
+	public String getFromRegs(String name) {
 		for(int i =0;i<registers.length;i++ ) {
 			if(registers[i].name==name)
 				return registers[i].value;
 		}
-		return 0;
+		return null;
 	}
-	public void setaRegs(String name,int value) {
+	public void setRegs(String name,String value) {
 		for(int i =0;i<registers.length;i++ ) {
 			if(registers[i].name==name)
 				registers[i].value=value;
