@@ -8,66 +8,92 @@ public class Decode implements Runnable {
 	private RegisterFile regFile;
 	PipelineRegister prev;
 	PipelineRegister next;
+	String instruction;
+	String Opcode;
+	String rs;
+	String rt;
+	String rd;
+	String immediate;
+	int temp;
 
-	public Decode(RegisterFile reg,  PipelineRegister next, PipelineRegister prev) {
-		regFile=reg;
-		this.prev=prev;
-		this.next=next;
+	public Decode(RegisterFile reg, PipelineRegister next, PipelineRegister prev) {
+		regFile = reg;
+		this.prev = prev;
+		this.next = next;
 	}
+
 	public void run() {
 		regFile.setRegs("PC", prev.readRegister("PC"));
-		String inst= prev.readRegister("IR");
+		String inst = prev.readRegister("IR");
+		regFile.setRegs("IR", inst);
+		DecodeNow();
+	}
 
-		regFile.setRegs("IR",inst);
-		String instruction;
-		String Opcode; 
-		String sub;
-		Register R1;
-		Register R2;
-		Register R3;
-		int i;
-		int temp;
-		public Decode() {
-			Opcode=instruction.substring(0,6);
-			if(instruction==)
-				R1=instruction.substring(6,12);
-			R2=instruction.substring(12,18);
-			R3=instruction.substring(18,24);;
-
-			i=new PipelineRegister().immediate;
-			sub=instruction.substring(6,11);
-			String s =DecodeNow();
-		}
-
-		public String DecodeNow() {
-			if(Opcode.equals("00000"+sub+"00000000000000000"))
-				Memory.load(R1,R2);
-			if(Opcode.equals("00001"+sub+"00000000000000000" ))
-				Memory.store(R1,R2);
-			//ARITHMATIC AND LOGICAL OPERATIONS
-			if(Opcode.equals("00010"+sub+instruction.substring(11,16)+"000000000000"))
-				R1.value=Integer.parseInt(R2.value,2)+Integer.parseInt(R3.value,2);
-			if(Opcode.equals("00011"+sub+instruction.substring(11,16)+"000000000000"))
-				R1.value=R2.value-R3.value;
-			if(Opcode.equals("00100"+sub+instruction.substring(11)))
-				R1.value=i;
-			if(Opcode.equals("00101"+sub+instruction.substring(11)))
-				R1.value=R1.value>>i;
-				if(Opcode.equals("00110"+sub+instruction.substring(11)))
-					R1.value=R1.value<<i;
-				if(Opcode.equals("00111"+sub+instruction.substring(11,16)+"000000000000"))
-					R1.value=R2.value*R3.value;
-				if(Opcode.equals("01000"+sub+instruction.substring(11,16)+"000000000000"))
-					R1.value=R2.value/R3.value;
-				if(Opcode.equals("01001"+sub+instruction.substring(11,16)+"000000000000"))
-					R1.value=R2.value&R3.value;
-				if(Opcode.equals("01010"+sub+instruction.substring(11,16)+"000000000000"))
-					R1.value=R2.value|R3.value;
-				if(Opcode.equals("01100"+sub+instruction.substring(11,16)+"000000000000"))
-					R1.value=~R2.value;
-				if(Opcode.equals("01101"+sub+instruction.substring(11,16)+"000000000000"))
-					R1.value=R2.value^R3.value;
-				if(Opcode.equals("01110"+sub+instruction.substring(11,16)+"000000000000"))
-					R1.value=R1.value.toString().substring(0,12);
+	public void DecodeNow() {
+		instruction= prev.readRegister("IR");
+		Opcode = instruction.substring(0, 5);
+		switch (Opcode) {
+		case ("00000"):
+		case ("00001"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R2", instruction.substring(10, 15));
+			break;
+		case ("00010"):
+		case ("00011"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R2", instruction.substring(10, 15));
+			next.setRegister("R3", instruction.substring(15, 20));
+			break;
+		case ("00100"):
+		case ("00101"):
+		case ("00110"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("Immediate", instruction.substring(10));
+		case ("00111"):
+		case ("01000"):
+		case ("01001"):
+		case ("01010"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R2", instruction.substring(10, 15));
+			next.setRegister("R3", instruction.substring(15, 20));
+			break;
+		case ("01100"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R2", instruction.substring(10, 15));
+			break;
+		case ("01101"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R2", instruction.substring(10, 15));
+			next.setRegister("R3", instruction.substring(15, 20));
+			break;
+		case ("01110"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			break;
+		case ("10000"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R2", instruction.substring(10, 15));
+			next.setRegister("R3", instruction.substring(15, 20));
+			break;
+		case ("10001"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			break;
+		case ("10010"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R2", instruction.substring(10, 15));
+			break;
+		case ("10011"):
+			next.setRegister("rsd", instruction.substring(5, 10));
+			break;
+		case ("10100"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R2", instruction.substring(10, 15));
+			next.setRegister("R3", instruction.substring(15));
+			break;
+		case ("10101"):
+			next.setRegister("R1", instruction.substring(5, 10));
+			next.setRegister("R2", instruction.substring(10, 15));
+			next.setRegister("R3", instruction.substring(15));
+			break;
 		}
 	}
+}
