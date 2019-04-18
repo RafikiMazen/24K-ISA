@@ -1,8 +1,8 @@
 package Components;
 
 public class Register {
-	String name;
-	String value;
+String name;
+String value;
 	int size;
 	int index;
 	
