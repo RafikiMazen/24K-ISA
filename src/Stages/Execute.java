@@ -9,11 +9,13 @@ public class Execute implements Runnable {
 	private RegisterFile regFile;
 	PipelineRegister prev;
 	PipelineRegister next;
-	public Execute()
-	{
-		ALUExecuted=new ALU(regFile,next,prev);
+	public Execute(RegisterFile reg, PipelineRegister next, PipelineRegister prev)
+	{regFile = reg;
+	this.prev = prev;
+	this.next = next;
 	}
 	public void run() {
+		ALUExecuted=new ALU(regFile,next,prev);
 		
 	}
 }

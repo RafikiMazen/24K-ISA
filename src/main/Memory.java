@@ -5,7 +5,8 @@ public class Memory {
 	String type;
 	int size ;
 	int instructions;
-
+	
+	
 	public Memory(String type, int size) {
 		this.type=type;
 		this.size=size;
@@ -51,6 +52,17 @@ public class Memory {
 		else {
 			System.out.println("out of memory bound");
 			memory[i]=value;
+		}
+	}
+	
+	public void run() {
+//		ALU Check flag to write/read
+	}
+	public void writeInIndex(int index,String data) {
+		for(int j=0;j<memory.length;j++) {
+			if(memory[j].equals(memory[index])) {
+				memory[index]=data;
+			}
 		}
 	}
 
