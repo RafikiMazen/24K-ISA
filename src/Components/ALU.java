@@ -2,7 +2,6 @@ package Components;
 
 import java.util.Scanner;
 
-import Stages.Memory;
 
 public class ALU {
 	//	String instruction;
