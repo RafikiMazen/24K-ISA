@@ -12,12 +12,12 @@ public class Fetch implements Runnable {
 	public Fetch(Memory memory, PipelineRegister next) {
 		this.next=next;
 		instructionMemory= memory;
-		instructionAddress=-4;
+		instructionAddress = -4;
 		instruction="";
 	}
 	
 	public void setInstruction(int value) {
-		
+		instruction=""+value;
 	}
 	
 	public void run () {

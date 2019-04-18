@@ -9,7 +9,7 @@ public class Memory {
 	public Memory(String type, int size) {
 		this.type=type;
 		this.size=size;
-		memory = new String [20];
+		memory = new String [size];
 		instructions=0;
 	}
 	

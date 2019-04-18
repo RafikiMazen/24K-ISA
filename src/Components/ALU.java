@@ -9,10 +9,28 @@ public class ALU {
 	PipelineRegister prev;
 	PipelineRegister next;
 	String Opcode;
-	String rs;
-	String rt;
-	String rd;
-	String Immediate;
+	private String R1;
+	private String R2;
+	private String R3;
+public String getR1() {
+		return R1;
+	}
+	public void setR1(String r1) {
+		R1 = r1;
+	}
+	public String getR2() {
+		return R2;
+	}
+	public void setR2(String r2) {
+		R2 = r2;
+	}
+	public String getR3() {
+		return R3;
+	}
+	public void setR3(String r3) {
+		R3 = r3;
+	}
+	//	String Immediate;
 	int temp;
 	boolean MemoryWrite;
 	boolean MemoryRead;
@@ -25,11 +43,12 @@ public class ALU {
 		MemoryRead=false;
 		MemoryWrite=false;
 		Jump=false;
+		Opcode=prev.readRegister("Opcode");
 	}
 	public void operation() {
 		//Memory
 		if(Opcode.equals("00000"))
-			//			Memory.load(R1,R2);
+//						Memory.load(R1,R2);
 			MemoryRead=true;
 		if(Opcode.equals("00001"))
 			//			Memory.store(R1,R2);
@@ -58,81 +77,110 @@ public class ALU {
 		//	if(Opcode.equals("01101"+sub+instruction.substring(11,16)+"000000000000"))
 		//		R1.value=R2.value^R3.value;
 		//	if(Opcode.equals("01110"+sub+instruction.substring(11,16)+"000000000000"))
-		//		R1.value=R1.value.toString().substring(0,12);
+		//		R1.value=R1.value.toBinaryString().substring(0,12);
 		if(Opcode.equals("00010")) {
-			temp=Integer.parseInt(prev.readRegister("R2"),2)+Integer.parseInt(prev.readRegister("R3"),2);
-			regFile.setRegs("R1", Integer.toString(temp));
+			temp=(Integer.parseInt(prev.readRegister("R2"),2))+(Integer.parseInt(prev.readRegister("R3"),2));
+//			regFile.setRegs("R1", Integer.toBinaryString(temp));
+			R1=Integer.toBinaryString(temp);
 		}if(Opcode.equals("00011")) {
 			temp=Integer.parseInt(prev.readRegister("R2"),2)-Integer.parseInt(prev.readRegister("R3"),2);
-			regFile.setRegs("R1", Integer.toString(temp));
+//			regFile.setRegs("R1", Integer.toBinaryString(temp));
+			R1=Integer.toBinaryString(temp);
 		}
 		if(Opcode.equals("00100"))
-			//		R1.value=Integer.toString(i);
-			regFile.setRegs("R1", Immediate);
+		{
+			//		R1.value=Integer.toBinaryString(i);
+			String Immediate =prev.readRegister("Immediate");
+//			regFile.setRegs("R1", Immediate);
+			R1=Immediate;
+		}
 		if(Opcode.equals("00101"))
-			regFile.setRegs("R1",(Integer.toString(Integer.parseInt(prev.readRegister("R1"),2)>>Integer.parseInt(Immediate))));
+		{	
+			String Immediate =prev.readRegister("Immediate");
+			regFile.setRegs("R1",(Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)>>Integer.parseInt(Immediate))));
 		//	regFile.setRegs("R1", (Integer.parseInt(prev.readRegister("R1"),2))>>Immediate);
-		if(Opcode.equals("00110"))
-			regFile.setRegs("R1",(Integer.toString(Integer.parseInt(prev.readRegister("R1"),2)<<Integer.parseInt(Immediate))));
+			R1=""+(Integer.parseInt(prev.readRegister("R1"),2)>>Integer.parseInt(Immediate,2));
+		}
+		if(Opcode.equals("00110")) {
+			String Immediate =prev.readRegister("Immediate");
+			regFile.setRegs("R1",(Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)<<Integer.parseInt(Immediate))));
+			R1=(Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)<<Integer.parseInt(Immediate)));
+		}
 		if(Opcode.equals("00111"))
-		{	temp=Integer.parseInt(prev.readRegister("R2"),2)*Integer.parseInt(prev.readRegister("R3"),2);
+		{	
+			temp=(Integer.parseInt(prev.readRegister("R2"),2))*(Integer.parseInt(prev.readRegister("R3"),2));
 		//			temp=Integer.parseInt(R2.value,2)*Integer.parseInt(R3.value,2);
-		regFile.setRegs("R1", Integer.toString(temp));
+//			regFile.setRegs("R1", Integer.toBinaryString(temp));
+			R1= Integer.toBinaryString(temp);
 		}
 		if(Opcode.equals("01000"))
 		{
 			temp=Integer.parseInt(prev.readRegister("R2"),2)/Integer.parseInt(prev.readRegister("R3"),2);
-			regFile.setRegs("R1", Integer.toString(temp));
+//			regFile.setRegs("R1", Integer.toBinaryString(temp));
+			R1=Integer.toBinaryString(temp);
 		}
 		if(Opcode.equals("01001"))
 		{
 			temp=Integer.parseInt(prev.readRegister("R2"),2)&Integer.parseInt(prev.readRegister("R3"),2);
-			regFile.setRegs("R1", Integer.toString(temp));
+//			regFile.setRegs("R1", Integer.toBinaryString(temp));
+			 R1=Integer.toBinaryString(temp);
+			
 		}
 		if(Opcode.equals("01010"))
 		{
 			temp=Integer.parseInt(prev.readRegister("R2"),2)|Integer.parseInt(prev.readRegister("R3"),2);
-			regFile.setRegs("R1", Integer.toString(temp));
+//			regFile.setRegs("R1", Integer.toBinaryString(temp));
+			R1=Integer.toBinaryString(temp);
 		}
 		if(Opcode.equals("01100")) {
 			int negate=~Integer.parseInt(prev.readRegister("R2"),2);
 			String tempString= Integer.toString(negate);
-			regFile.setRegs("R1", Integer.toString(temp));
-		}if(Opcode.equals("01101"))
+//			regFile.setRegs("R1", Integer.toBinaryString(temp));
+			R1=Integer.toBinaryString(temp);
+		}
+		if(Opcode.equals("01101"))
 		{
 			temp=Integer.parseInt(prev.readRegister("R2"),2)^Integer.parseInt(prev.readRegister("R3"),2);
-			regFile.setRegs("R1", Integer.toString(temp));
+//			regFile.setRegs("R1", Integer.toBinaryString(temp));
+			R1=Integer.toBinaryString(temp);
 		}
 		if(Opcode.equals("01110"))
-			//			R1.value=R1.value.toString().substring(0,12);
-			regFile.setRegs("R1", (Integer.toString(Integer.parseInt(prev.readRegister("R1"),2)).substring(0,12)));
+			//			R1.value=R1.value.toBinaryString().substring(0,12);
+//			regFile.setRegs("R1", (Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)).substring(0,12)));
+		R1=Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)).substring(0,12);
 
 		if(Opcode.equals("01111")) {
-			//			R1.value=R1.value.toString().substring(0,12);
-			regFile.setRegs("R1", (Integer.toString(Integer.parseInt(prev.readRegister("R1"),2)).substring(0,12)));
+			//			R1.value=R1.value.toBinaryString().substring(0,12);
+//			regFile.setRegs("R1", (Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)).substring(0,12)));
 
 		}
 		if(Opcode.equals("10000")) {
-			//			R1.value=R1.value.toString().substring(0,12);
+			//			R1.value=R1.value.toBinaryString().substring(0,12);
 			if((Integer.parseInt(prev.readRegister("R2"),2))>(Integer.parseInt(prev.readRegister("R3"),2)))
-				regFile.setRegs("R1", Integer.toString(1));
-			else
-				regFile.setRegs("R1", Integer.toString(0));
+			{	regFile.setRegs("R1", Integer.toBinaryString(1));
+			R1=Integer.toBinaryString(1);
+			}
+			else {
+				regFile.setRegs("R1", Integer.toBinaryString(0));
+			R1=Integer.toBinaryString(0);
+			}
 		}
-		if(Opcode.equals("10001") ||Opcode.equals("10010")||Opcode.equals("10011")||Opcode.equals("10100")||Opcode.equals("10101"))
+		if(Opcode.equals("10001") ||
+				Opcode.equals("10010")||Opcode.equals("10011")
+				||Opcode.equals("10100")||Opcode.equals("10101"))
 		{
 			Jump=true;
 
 		}
 	}
-	public String IntegerToBinary(int integerValue) {
-		String x = "";
-		while(integerValue > 0)
-		{
-			int a = integerValue % 2;
-			x = a + x;
-			integerValue = integerValue / 2;
-		}
-		return x;
-	}
+//	public String IntegerToBinary(int integerValue) {
+//		Strin/g x = "";
+//		while(integerValue > 0)
+//		{
+//			int a = integerValue % 2;
+//			x = a + x;
+//			integerValue = integerValue / 2;
+//		}
+//		return x;
+//	}
 }
