@@ -29,12 +29,14 @@ public class Simulation {
 		dataMemory = new Memory("data");
 		instructionMemory = new Memory("instruction");
 		registers = new RegisterFile();
+		fetch = new Fetch(instructionMemory);
+		decode= new Decode(registers);
 
 	}
 	void run() {
 		while(fetch.hasMoreInstruction()) {
-			fetch.run(instructionMemory);
-			decode.run(registers);
+			fetch.run();
+			decode.run();
 			execute.run();
 			memoryW.run();
 			WB.run();		
