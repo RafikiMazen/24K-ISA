@@ -2,8 +2,22 @@ package Stages;
 
 import Components.PipelineRegister;
 import Components.Register;
+import Components.RegisterFile;
 
 public class Decode {
+	private RegisterFile regFile;
+	PipelineRegister prev;
+	PipelineRegister next;
+	
+	public Decode(RegisterFile reg,  PipelineRegister next, PipelineRegister prev) {
+		regFile=reg;
+		this.prev=prev;
+		this.next=next;
+	}
+	public void run() {
+		regFile.setRegs("PC", prev.readRegister("PC"));
+		String inst= prev.readRegister("IR");
+				regFile.setRegs("IR",inst);
 	String instruction;
 	String Opcode; 
 	String sub;

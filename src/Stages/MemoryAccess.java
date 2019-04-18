@@ -1,6 +1,6 @@
 package Stages;
 
-public class WriteBack {
+public class MemoryAccess {
 
 	
 	public void run() {

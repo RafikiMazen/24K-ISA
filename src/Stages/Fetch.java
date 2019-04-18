@@ -1,16 +1,36 @@
 package Stages;
 
+import main.Memory;
+
 public class Fetch {
-	Memory Memory;
-	String MemorySpace;
-	public Fetch(String instruction) {
-		 Memory=new Memory();
-		 for(int i=0;i<Memory.Addresses.size();i++) {
-		if(instruction==Memory.Addresses.get(i)) {
-			MemorySpace= Memory.Addresses.get(i);
-		}
-			
-		 }
+	private Memory instructionMemory;
+	int instructionAddress;
+	String instruction;
+	
+	public Fetch(Memory memory) {
+		instructionMemory= memory;
+		instructionAddress=-4;
+		instruction="";
+	}
+	
+	public void run () {
+		instructionAddress+=4;
+		instruction=instructionMemory.readFromIndex(instructionAddress);
+		
+		//update pipeline
+	}
+
+	public int getInstructionAddress() {
+		return instructionAddress;
+	}
+
+	public String getInstruction() {
+		return instruction;
+	}
+
+	public boolean hasMoreInstruction() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
