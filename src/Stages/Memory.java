@@ -7,4 +7,5 @@ public class Memory {
 	public Memory() {
 		Addresses=new ArrayList<>();
 	}
+	
 }
