@@ -1,5 +1,11 @@
 package Stages;
 
-public class Execute {
+import Components.ALU;
 
+public class Execute {
+	ALU ALUExecuted;
+	public Execute()
+	{
+		ALUExecuted=new ALU();
+	}	
 }
