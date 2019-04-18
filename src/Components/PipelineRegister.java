@@ -8,6 +8,7 @@ import Stages.Fetch;
 public class PipelineRegister {
 	int type ;
 	HashMap<String,String> registers;
+	boolean flag;
 	
 	public PipelineRegister(int type) {
 		if(type==1) {
@@ -23,13 +24,17 @@ public class PipelineRegister {
 		if(type==4) {
 //			setup registers for first step
 		}
+		
 	}
 	
-	public void setRegister(String reg,String value) {
-		registers.replace(reg, value);
+	
+	public void clear() {
+		registers.clear();
+		flag=false;
 	}
 	
 	public void updateValues(Fetch fetch){
+		flag=true;
 		if(type==1) {
 		registers.replace("PC", Integer.toBinaryString(fetch.getInstructionAddress()));
 		registers.replace("IR", fetch.getInstruction());

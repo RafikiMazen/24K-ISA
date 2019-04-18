@@ -14,7 +14,7 @@ public class Simulation {
 	private Fetch fetch;
 	private Decode decode;
 	private Execute execute;
-	private MemoryAccess memoryW;
+	private MemoryAccess memoryA;
 	private WriteBack WB;
 	private PipelineRegister IF_ID;
 	private PipelineRegister ID_EX;
@@ -26,24 +26,22 @@ public class Simulation {
 		ID_EX = new PipelineRegister(2);
 		EX_MEM = new PipelineRegister(3);
 		MEM_WB = new PipelineRegister(4);
-		dataMemory = new Memory("data");
-		instructionMemory = new Memory("instruction");
+		dataMemory = new Memory("data",400);
+		instructionMemory = new Memory("instruction",15);
 		registers = new RegisterFile();
-		fetch = new Fetch(instructionMemory);
-		decode= new Decode(registers);
+		fetch = new Fetch(instructionMemory,IF_ID);
+		decode= new Decode(registers,ID_EX,IF_ID);
+		memoryA= new MemoryAccess(EX_MEM, MEM_WB, dataMemory,fetch,registers);
 
 	}
 	void run() {
+//		TODO: Check that threads are all done, and actually create the threads :'D
 		while(fetch.hasMoreInstruction()) {
 			fetch.run();
 			decode.run();
 			execute.run();
-			memoryW.run();
+			memoryA.run();
 			WB.run();		
-			IF_ID.updateValues(fetch);
-			ID_EX.updateValues();
-			EX_MEM.updateValues();
-			MEM_WB.updateValues();
 		}	
 	}
 

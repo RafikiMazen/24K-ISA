@@ -3,7 +3,7 @@ package Stages;
 import Components.PipelineRegister;
 import Components.RegisterFile;
 
-public class Decode {
+public class Decode implements Runnable {
 	private RegisterFile regFile;
 	PipelineRegister prev;
 	PipelineRegister next;
@@ -16,7 +16,8 @@ public class Decode {
 	public void run() {
 		regFile.setRegs("PC", prev.readRegister("PC"));
 		String inst= prev.readRegister("IR");
-				regFile.setRegs("IR",inst);
+		regFile.setRegs("IR",inst);
+		
 		
 	}
 }

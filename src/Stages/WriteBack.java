@@ -1,6 +1,6 @@
 package Stages;
 
-public class WriteBack {
+public class WriteBack implements Runnable {
 
 	
 	public void run() {

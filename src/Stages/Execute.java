@@ -2,7 +2,7 @@ package Stages;
 
 import Components.ALU;
 
-public class Execute {
+public class Execute implements Runnable {
 	ALU ALUExecuted;
 
 	public Execute()

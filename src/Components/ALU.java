@@ -8,6 +8,6 @@ public class ALU {
 		operation();
 	}
 	public String operation() {
-		
+		return null;
 	}
 }
