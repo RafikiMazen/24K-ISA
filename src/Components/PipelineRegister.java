@@ -32,10 +32,6 @@ public class PipelineRegister {
 		registers.clear();
 		flag=false;
 	}
-	Register rs;
-	Register rt;
-	Register rd;
-	int immediate;
 	public void setRegister(String reg,String value) {
 		registers.replace(reg, value);
 	}
