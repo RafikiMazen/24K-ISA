@@ -2,15 +2,16 @@ import Components.PipelineRegister;
 import Stages.Decode;
 import Stages.Execute;
 import Stages.Fetch;
-import Stages.Memory;
+import Stages.MemoryAccess;
 import Stages.WriteBack;
 
 public class Simulation {
-
+	private Memory dataMemory;
+	private Memory instructionMemory;
 	private Fetch fetch;
 	private Decode decode;
-	private Execute exexute;
-	private Memory memoryW;
+	private Execute execute;
+	private MemoryAccess memoryW;
 	private WriteBack WB;
 	private PipelineRegister IF_ID;
 	private PipelineRegister ID_EX;
@@ -18,16 +19,25 @@ public class Simulation {
 	private PipelineRegister MEM_WB;
 
 	public Simulation() {
-		//initiate variables
+		IF_ID = new PipelineRegister(1);
+		ID_EX = new PipelineRegister(2);
+		EX_MEM = new PipelineRegister(3);
+		MEM_WB = new PipelineRegister(4);
+		dataMemory = new Memory("data");
+		instructionMemory = new Memory("instruction");
 	}
 	void run() {
-		while(hasMoreInstruction()) {
+		while(fetch.hasMoreInstruction()) {
 			fetch.run();
 			decode.run();
 			execute.run();
 			memoryW.run();
 			WB.run();			
 		}	
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("This is 24K wa elhag 3abdo Welcoming you to the Simulation");
 	}
 	 
 	

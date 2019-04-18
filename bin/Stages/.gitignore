@@ -3,3 +3,5 @@
 /Fetch.class
 /Memory.class
 /WriteBack.class
+/MemoryStage.class
+/MemoryAccess.class
