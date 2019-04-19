@@ -43,7 +43,7 @@ public String getR1() {
 		MemoryRead=false;
 		MemoryWrite=false;
 		Jump=false;
-		Opcode=prev.readRegister("Opcode");
+		Opcode=prev.getOpcode();
 	}
 	public void operation() {
 		//Memory
@@ -97,13 +97,13 @@ public String getR1() {
 		if(Opcode.equals("00101"))
 		{	
 			String Immediate =prev.readRegister("Immediate");
-			regFile.setRegs("R1",(Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)>>Integer.parseInt(Immediate))));
-		//	regFile.setRegs("R1", (Integer.parseInt(prev.readRegister("R1"),2))>>Immediate);
+		//	regFile.setRegs("R1",(Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)>>Integer.parseInt(Immediate))));
+
 			R1=""+(Integer.parseInt(prev.readRegister("R1"),2)>>Integer.parseInt(Immediate,2));
 		}
 		if(Opcode.equals("00110")) {
 			String Immediate =prev.readRegister("Immediate");
-			regFile.setRegs("R1",(Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)<<Integer.parseInt(Immediate))));
+//			regFile.setRegs("R1",(Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)<<Integer.parseInt(Immediate))));
 			R1=(Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)<<Integer.parseInt(Immediate)));
 		}
 		if(Opcode.equals("00111"))
@@ -150,29 +150,25 @@ public String getR1() {
 		R1=Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)).substring(0,12);
 
 		if(Opcode.equals("01111")) {
-			//			R1.value=R1.value.toBinaryString().substring(0,12);
+//			R1.value=R1.value.toBinaryString().substring(0,12);
 //			regFile.setRegs("R1", (Integer.toBinaryString(Integer.parseInt(prev.readRegister("R1"),2)).substring(0,12)));
 
 		}
 		if(Opcode.equals("10000")) {
 			//			R1.value=R1.value.toBinaryString().substring(0,12);
 			if((Integer.parseInt(prev.readRegister("R2"),2))>(Integer.parseInt(prev.readRegister("R3"),2)))
-			{	regFile.setRegs("R1", Integer.toBinaryString(1));
+			{	
+//				regFile.setRegs("R1", Integer.toBinaryString(1));
 			R1=Integer.toBinaryString(1);
 			}
 			else {
-				regFile.setRegs("R1", Integer.toBinaryString(0));
+//				regFile.setRegs("R1", Integer.toBinaryString(0));
 			R1=Integer.toBinaryString(0);
 			}
 		}
-		if(Opcode.equals("10001") ||
-				Opcode.equals("10010")||Opcode.equals("10011")
-				||Opcode.equals("10100")||Opcode.equals("10101"))
-		{
-			Jump=true;
-
-		}
+	
 	}
+	
 //	public String IntegerToBinary(int integerValue) {
 //		Strin/g x = "";
 //		while(integerValue > 0)
@@ -183,4 +179,22 @@ public String getR1() {
 //		}
 //		return x;
 //	}
+	public boolean isMemoryWrite() {
+		return MemoryWrite;
+	}
+	public void setMemoryWrite(boolean memoryWrite) {
+		MemoryWrite = memoryWrite;
+	}
+	public boolean isMemoryRead() {
+		return MemoryRead;
+	}
+	public void setMemoryRead(boolean memoryRead) {
+		MemoryRead = memoryRead;
+	}
+	public boolean isJump() {
+		return Jump;
+	}
+	public void setJump(boolean jump) {
+		Jump = jump;
+	}
 }

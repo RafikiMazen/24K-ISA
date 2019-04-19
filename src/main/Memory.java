@@ -35,7 +35,7 @@ public class Memory {
 	}
 
 	public String readFromIndex(int index) {
-		int i = index/4;
+		int i = index;
 		if(i<memory.length)
 			return memory[i];
 		else {
@@ -44,7 +44,7 @@ public class Memory {
 		}
 	}
 	public void setIntoMemory(int index, String value) {
-		int i = index/4;
+		int i = index;
 		if(i<memory.length) {
 			memory[i]=value;
 			instructions++;
@@ -59,6 +59,7 @@ public class Memory {
 //		ALU Check flag to write/read
 	}
 	public void writeInIndex(int index,String data) {
+		
 		for(int j=0;j<memory.length;j++) {
 			if(memory[j].equals(memory[index])) {
 				memory[index]=data;

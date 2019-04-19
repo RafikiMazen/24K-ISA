@@ -1,4 +1,5 @@
 package Stages;
+
 import Components.PipelineRegister;
 import Components.RegisterFile;
 
@@ -8,10 +9,20 @@ public class Decode implements Runnable {
 	PipelineRegister next;
 	String instruction;
 	String Opcode;
-	String rs;
-	String rt;
-	String rd;
+	String R1Value;
+	String R2Value;
+	String R3Value;
+	String R1Address;
+	String R2Address;
+	String R3Address;
 	String immediate;
+	String writeAddress;
+	String writeValue;
+	boolean jump;
+	boolean writeMem;
+	boolean readMem;
+	boolean writeReg;
+
 	int temp;
 
 	public Decode(RegisterFile reg, PipelineRegister next, PipelineRegister prev) {
@@ -21,90 +32,132 @@ public class Decode implements Runnable {
 	}
 
 	public void run() {
-		regFile.setRegs("PC", prev.readRegister("PC"));
-		String inst = prev.readRegister("IR");
+		regFile.setRegs("PC", prev.getPC());
+		String inst = prev.getIR();
 		regFile.setRegs("IR", inst);
 		DecodeNow();
 	}
 
 	public void DecodeNow() {
-		instruction= prev.readRegister("IR");
+		instruction = prev.getIR();
 		Opcode = instruction.substring(0, 5);
+		next.setOpcode(Opcode);
 		switch (Opcode) {
 		case ("00000"):
+			readMem = true;
+			R1Address = instruction.substring(5, 10);
+			R1Value = "";
+			R2Address = instruction.substring(10, 15);
+			R2Value = regFile.getFromRegsbyBits(R2Address);
+			break;
 		case ("00001"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
-			next.setRegister("Opcode",Opcode);
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
+			R2Address = instruction.substring(10, 15);
+			R2Value = regFile.getFromRegsbyBits(R2Address);
+			writeAddress = R2Address;
+			writeValue = R2Value;
+			writeMem = true;
 			break;
 		case ("00010"):
 		case ("00011"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
-			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15, 20)));
-			next.setRegister("Opcode",Opcode);
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
+			R2Address = instruction.substring(10, 15);
+			R2Value = regFile.getFromRegsbyBits(R2Address);
+			R3Address = instruction.substring(15, 20);
+			R3Value = regFile.getFromRegsbyBits(R3Address);
+			writeAddress = R3Address;
+			writeValue = R3Value;
+			writeReg = true;
 			break;
 		case ("00100"):
 		case ("00101"):
 		case ("00110"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("Immediate", regFile.getFromRegsbyBits(instruction.substring(10)));
-			next.setRegister("Opcode",Opcode);
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
+			writeAddress = R1Address;
+			writeValue = R1Value;
+			writeReg = true;
+			break;
 		case ("00111"):
 		case ("01000"):
 		case ("01001"):
 		case ("01010"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
-			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15, 20)));
-			next.setRegister("Opcode",Opcode);
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
+			R2Address = instruction.substring(10, 15);
+			R2Value = regFile.getFromRegsbyBits(R2Address);
+			R3Address = instruction.substring(15, 20);
+			R3Value = regFile.getFromRegsbyBits(R3Address);
+			writeAddress = R3Address;
+			writeValue = R3Value;
+			writeReg = true;
 			break;
 		case ("01100"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
-			next.setRegister("Opcode",Opcode);
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
+			R2Address = instruction.substring(10, 15);
+			R2Value = regFile.getFromRegsbyBits(R2Address);
+			writeAddress = R2Address;
+			writeValue = R2Value;
+			writeReg = true;
 			break;
 		case ("01101"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
-			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15, 20)));
-			next.setRegister("Opcode",Opcode);
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
+			R2Address = instruction.substring(10, 15);
+			R2Value = regFile.getFromRegsbyBits(R2Address);
+			R3Address = instruction.substring(15, 20);
+			R3Value = regFile.getFromRegsbyBits(R3Address);
+			writeAddress = R3Address;
+			writeValue = R3Value;
+			writeReg = true;
 			break;
 		case ("01110"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("Opcode",Opcode);
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
 			break;
 		case ("10000"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
-			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15, 20)));
-			next.setRegister("Opcode",Opcode);
-			break;
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
+			R2Address = instruction.substring(10, 15);
+			R2Value = regFile.getFromRegsbyBits(R2Address);
+			R3Address = instruction.substring(15, 20);
+			R3Value = regFile.getFromRegsbyBits(R3Address);
+			writeAddress = R3Address;
+			writeValue = R3Value;
+			writeReg = true;
 		case ("10001"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("Opcode",Opcode);
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
+			jump = true;
 			break;
 		case ("10010"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
-			next.setRegister("Opcode",Opcode);
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
+			R2Address = instruction.substring(10, 15);
+			R2Value = regFile.getFromRegsbyBits(R2Address);
+			writeAddress = R2Address;
+			writeValue = R2Value;
+			jump = true;
+			writeReg = true;
 			break;
 		case ("10011"):
-			next.setRegister("rsd", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("Opcode",Opcode);
+			immediate = instruction.substring(5);
+			jump = true;
 			break;
 		case ("10100"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
-			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15)));
-			next.setRegister("Opcode",Opcode);
-			break;
 		case ("10101"):
-			next.setRegister("R1", regFile.getFromRegsbyBits(instruction.substring(5, 10)));
-			next.setRegister("R2", regFile.getFromRegsbyBits(instruction.substring(10, 15)));
-			next.setRegister("R3", regFile.getFromRegsbyBits(instruction.substring(15)));
-			next.setRegister("Opcode",Opcode);
+			R1Address = instruction.substring(5, 10);
+			R1Value = regFile.getFromRegsbyBits(R1Address);
+			R2Address = instruction.substring(10, 15);
+			R2Value = regFile.getFromRegsbyBits(R2Address);
+			immediate = instruction.substring(10);
+			jump = true;
 			break;
+		default:
+			System.out.println("Error in decoding!!!!!!!!!");
 		}
 	}
 }
