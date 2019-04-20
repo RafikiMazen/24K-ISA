@@ -191,7 +191,16 @@ public class gui {
 			if (instArray.length>1) {
 				
 				if (isNumeric(instArray[1]))
-					R1=instArray[1];
+				{	int number;
+				 number = Integer.parseInt(instArray[1]);	
+				 R1 = Integer.toBinaryString(number);
+				 
+				 while(R1.length()<27) {
+					 R1 = "0"+R1;
+				 }
+				}
+					
+				//	toBinaryString();
 
 				
 				else {
@@ -366,7 +375,14 @@ public class gui {
 			if (instArray.length>2) {
 				
 				if (isNumeric(instArray[2]))
-					R2=instArray[2];
+				{	int number;
+				 number = Integer.parseInt(instArray[2]);	
+				 R2 = Integer.toBinaryString(number);
+				 
+				 while(R2.length()<22) {
+					 R2 = "0"+R2;
+				 }
+				}
 				else {
 				if (instArray[2].equalsIgnoreCase("$a0")) {
 					  R2 = "00000";
@@ -538,8 +554,14 @@ public class gui {
 			
 			if (instArray.length>3) {
 				if (isNumeric(instArray[3]))
-					R3=instArray[3];
-				else {
+				{	int number;
+				 number = Integer.parseInt(instArray[3]);	
+				 R3 = Integer.toBinaryString(number);
+				 
+				 while(R3.length()<17) {
+					 R3 = "0"+R3;
+				 }
+				}				else {
 				if (instArray[3].equalsIgnoreCase("$a0")) {
 					  R3 = "00000";
 				} else {
@@ -717,22 +739,32 @@ public class gui {
 			if (instArray.length==1) {
 				instToBits = "01111000000000000000000000000000";
 			}else {
-				if (instArray.length==2) {
-					instToBits= opcode+ R1;
-				}else {
-					if (instArray.length==3) {
-						instToBits = opcode+R1+R2;
+				if (instArray.length==2 && R1.length()!=27) {
+					instToBits= opcode+ R1 + "0000000000000000000000";
+				}
+				else { if (instArray.length ==2 && R1.length()==27)
+					instToBits= opcode+ R1 ;
+					else {
+				}
+					if (instArray.length==3 && R2.length()!=22) {
+						instToBits = opcode+R1+R2+"00000000000000000";
 					}else {
-						if (instArray.length==4) {
-							instToBits=opcode+R1+R2+R3;
-						} 
+						if  (instArray.length==3 && R2.length()==22) {
+							instToBits = opcode+R1+R2;
+						}else {
+						if (instArray.length==4 && R3.length()!=17) {
+							instToBits=opcode+R1+R2+R3+"000000000000";
+						} else {
+							if (instArray.length==4 && R3.length()==17) {
+								instToBits=opcode+R1+R2+R3;
+							} 
 						else {
 							instToBits=null;
 						}
 					}
 				}
 					
-			}
+			}}}
 			textPane.setText(instToBits);
 	            
 	    }  
