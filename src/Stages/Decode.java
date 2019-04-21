@@ -49,6 +49,7 @@ public class Decode {
 			R1Address = instruction.substring(5, 10);
 			R1Value = "";
 			R2Address = instruction.substring(10, 15);
+			writeAddress = R1Address;
 			R2Value = regFile.getFromRegsbyBits(R2Address);
 			break;
 		case ("00001"):
@@ -56,8 +57,8 @@ public class Decode {
 			R1Value = regFile.getFromRegsbyBits(R1Address);
 			R2Address = instruction.substring(10, 15);
 			R2Value = regFile.getFromRegsbyBits(R2Address);
-			writeAddress = R2Address;
-			writeValue = R2Value;
+
+			writeValue = R1Value;
 			writeMem = true;
 			break;
 		case ("00010"):
@@ -77,6 +78,7 @@ public class Decode {
 		case ("00110"):
 			R1Address = instruction.substring(5, 10);
 			R1Value = regFile.getFromRegsbyBits(R1Address);
+			immediate = instruction.substring(10);
 			writeAddress = R1Address;
 			writeValue = R1Value;
 			writeReg = true;
@@ -100,6 +102,7 @@ public class Decode {
 			R1Value = regFile.getFromRegsbyBits(R1Address);
 			R2Address = instruction.substring(10, 15);
 			R2Value = regFile.getFromRegsbyBits(R2Address);
+			// TODO
 			writeAddress = R2Address;
 			writeValue = R2Value;
 			writeReg = true;
@@ -118,6 +121,11 @@ public class Decode {
 		case ("01110"):
 			R1Address = instruction.substring(5, 10);
 			R1Value = regFile.getFromRegsbyBits(R1Address);
+			R2Address = instruction.substring(10, 15);
+			R2Value = regFile.getFromRegsbyBits(R2Address);
+			writeAddress = R2Address;
+			writeValue = R2Value;
+			writeReg=true;
 			break;
 		case ("10000"):
 			R1Address = instruction.substring(5, 10);
@@ -132,6 +140,7 @@ public class Decode {
 		case ("10001"):
 			R1Address = instruction.substring(5, 10);
 			R1Value = regFile.getFromRegsbyBits(R1Address);
+			jumpValue = R1Value;
 			jump = true;
 			break;
 		case ("10010"):
@@ -141,11 +150,13 @@ public class Decode {
 			R2Value = regFile.getFromRegsbyBits(R2Address);
 			writeAddress = R2Address;
 			writeValue = R2Value;
+			jumpValue = R1Value;
 			jump = true;
 			writeReg = true;
 			break;
 		case ("10011"):
-			immediate = instruction.substring(5);
+
+			jumpValue = instruction.substring(5);
 			jump = true;
 			break;
 		case ("10100"):
@@ -154,7 +165,7 @@ public class Decode {
 			R1Value = regFile.getFromRegsbyBits(R1Address);
 			R2Address = instruction.substring(10, 15);
 			R2Value = regFile.getFromRegsbyBits(R2Address);
-			immediate = instruction.substring(10);
+			jumpValue = instruction.substring(15);
 			jump = true;
 			break;
 		default:

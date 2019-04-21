@@ -30,7 +30,7 @@ public class WriteBack {
 		prev=memAccess.getNext();
 		this.regfile=regFile;
 		settersFromPrev();
-		if(!writeAddress.equals("")) {
+		if(!(writeAddress.equals("")||writeAddress==null)) {
 			regFile.setRegsbyBits(writeAddress, writeValue);
 		}
 	}

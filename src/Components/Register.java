@@ -1,17 +1,16 @@
 package Components;
 
 public class Register {
-	int index;
+	String index;
 	String name;
 	String value;
-	int size;
 
-	public Register(int index, String name, String value, int size) {
+	public Register(String index, String name, String value) {
 		super();
 		this.index = index;
 		this.name = name;
 		this.value = value;
-		this.size = size;
+		
 	}
 	public String getName() {
 		return name;

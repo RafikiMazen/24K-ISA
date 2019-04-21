@@ -32,6 +32,20 @@ public class Simulation {
 	private Queue<MemoryAccess> writeBackQueue;
 	ArrayList<String> instructions;
 
+	public ArrayList<String> getInstructions() {
+		return instructions;
+	}
+
+
+
+
+	public void setInstructions(ArrayList<String> instructions) {
+		this.instructions = instructions;
+	}
+
+
+
+
 	public Simulation() {
 //		IF_ID = new PipelineRegister(1);
 //		ID_EX = new PipelineRegister(2);
@@ -47,6 +61,10 @@ public class Simulation {
 //		memoryA= new MemoryAccess(EX_MEM, MEM_WB, dataMemory,fetch,registers);
 
 	}
+	
+	
+	
+	
 	public void go() {
 //		TODO: Check that threads are all done, and actually create the threads :'D
 		
@@ -121,6 +139,7 @@ public class Simulation {
 		}	
 	}
 
+	
 	public static void main(String[] args) {
 		System.out.println("This is 24K wa elhag 3abdo Welcoming you to the Simulation");
 	}
