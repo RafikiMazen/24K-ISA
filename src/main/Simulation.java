@@ -58,7 +58,7 @@ public class Simulation {
 			int didntEnter=0;
 			if(registers.getPC()<instructions.size()) {
 			tempFetch=new Fetch(instructions,registers);
-			decodeQueue.add(tempFetch);
+//			decodeQueue.add(tempFetch);
 			}
 			else {
 				didntEnter++;
@@ -67,7 +67,7 @@ public class Simulation {
 			
 			if(!decodeQueue.isEmpty())
 				{tempDecode=new Decode(registers,decodeQueue.poll());
-				executeQueue.add(tempDecode);
+//				executeQueue.add(tempDecode);
 				}
 			else {
 				didntEnter++;
@@ -76,7 +76,7 @@ public class Simulation {
 			if(!executeQueue.isEmpty())
 			{
 				tempExecute=new Execute(registers, executeQueue.poll());
-				memQueue.add(tempExecute);
+//				memQueue.add(tempExecute);
 			}
 			else {
 				didntEnter++;
@@ -85,7 +85,7 @@ public class Simulation {
 			if(!memQueue.isEmpty())
 			{
 				tempMem=new MemoryAccess(memQueue.poll(), dataMemory);
-				writeBackQueue.add(tempMem);
+//				writeBackQueue.add(tempMem);
 			}
 			else {
 				didntEnter++;
