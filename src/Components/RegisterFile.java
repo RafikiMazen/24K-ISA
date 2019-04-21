@@ -2,8 +2,17 @@ package Components;
 
 public class RegisterFile {
 	Register [] registers;
+	int PC;
 	
 	
+	public int getPC() {
+		return PC;
+	}
+
+	public void setPC(int pC) {
+		PC = pC;
+	}
+
 	public RegisterFile() {
 		//TODO Create all registers and add them 
 		//ADD $S0,$S1 ... in order

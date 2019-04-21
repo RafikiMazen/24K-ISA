@@ -1,7 +1,7 @@
 package Components;
 
-import java.util.HashMap;
-import java.util.Map.Entry;
+//import java.util.HashMap;
+//import java.util.Map.Entry;
 
 import Stages.Fetch;
 
@@ -26,7 +26,18 @@ public class PipelineRegister {
 	String Immediate;
 	String writeAddress;
 	String writeValue;
+	String jumpValue;
 	
+	public String getJumpValue() {
+		return jumpValue;
+	}
+
+
+	public void setJumpValue(String jumpValue) {
+		this.jumpValue = jumpValue;
+	}
+
+
 	public boolean isWriteReg() {
 		return writeReg;
 	}
