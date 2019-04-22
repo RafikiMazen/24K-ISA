@@ -114,7 +114,7 @@ System.out.println(Opcode);
 
             writeAddress=R2Address;
             break;
-            
+        }
        
         
         setterToNext();
@@ -128,7 +128,7 @@ System.out.println(Opcode);
         
 
 }
-        
+    
     
 
     public void settersFromPrev() {
