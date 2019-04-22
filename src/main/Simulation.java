@@ -1,5 +1,6 @@
 package main;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 
 //import com.sun.org.apache.bcel.internal.generic.Instruction;
@@ -26,12 +27,27 @@ public class Simulation {
 //	private PipelineRegister ID_EX;
 //	private PipelineRegister EX_MEM;
 //	private PipelineRegister MEM_WB;
-	private Queue<Fetch> decodeQueue;
+	private Queue <Fetch> decodeQueue;
 	private Queue<Decode> executeQueue;
 	private Queue<Execute> memQueue;
 	private Queue<MemoryAccess> writeBackQueue;
 	ArrayList<String> instructions;
 
+	public Simulation() {
+		dataMemory = new Memory("data",400);
+		instructions=new ArrayList<String>();		
+		registers = new RegisterFile();
+		decodeQueue=new LinkedList <Fetch>();
+		executeQueue= new LinkedList <Decode>();
+		memQueue= new LinkedList <Execute>();
+		writeBackQueue=new LinkedList <MemoryAccess>();
+		
+
+	}
+	
+	
+	
+	
 	public ArrayList<String> getInstructions() {
 		return instructions;
 	}
@@ -46,25 +62,6 @@ public class Simulation {
 
 
 
-	public Simulation() {
-//		IF_ID = new PipelineRegister(1);
-//		ID_EX = new PipelineRegister(2);
-//		EX_MEM = new PipelineRegister(3);
-//		MEM_WB = new PipelineRegister(4);
-		dataMemory = new Memory("data",400);
-		instructions=new ArrayList<String>();
-//		instructionMemory = new Memory("instruction",15);
-		
-		registers = new RegisterFile();
-//		fetch = new Fetch(instructionMemory,IF_ID);
-//		decode= new Decode(registers,ID_EX,IF_ID);
-//		memoryA= new MemoryAccess(EX_MEM, MEM_WB, dataMemory,fetch,registers);
-
-	}
-	
-	
-	
-	
 	public void go() {
 //		TODO: Check that threads are all done, and actually create the threads :'D
 		
@@ -74,6 +71,7 @@ public class Simulation {
 			Execute tempExecute=null;
 			MemoryAccess tempMem=null;
 			int didntEnter=0;
+
 			if(registers.getPC()<instructions.size()) {
 			tempFetch=new Fetch(instructions,registers);
 //			decodeQueue.add(tempFetch);

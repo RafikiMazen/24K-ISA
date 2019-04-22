@@ -32,6 +32,12 @@ public class WriteBack {
 		settersFromPrev();
 		if(!(writeAddress.equals("")||writeAddress==null)) {
 			regFile.setRegsbyBits(writeAddress, writeValue);
+			System.out.println("Write Back");
+			System.out.println("****************");
+			System.out.println("Writing value  " + Integer.parseInt(writeValue,2));
+			System.out.println(regFile.getRegs(writeAddress).getName());
+			System.out.println("****************");
+			System.out.println();
 		}
 	}
 	
@@ -47,7 +53,7 @@ public void settersFromPrev() {
 		R3Address=prev.getR3Address();
 		immediate=prev.getImmediate();
 		writeAddress=prev.getWriteAddress();
-		writeValue=prev.getWriteAddress();
+		writeValue=prev.getWriteValue();
 		jump=prev.isJump();
 		writeMem=prev.isWriteMem();
 		readMem=prev.isReadMem();

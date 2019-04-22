@@ -35,11 +35,15 @@ public class Execute {
         settersFromPrev();
         int tempA = 0;
         int tempB = 0;
-
+System.out.println(Opcode);
         switch (Opcode) {
         case "00010":
             tempA = Integer.parseInt(R1Value, 2) + Integer.parseInt(R2Value, 2);
-            R1Value = Integer.toBinaryString(tempA);
+            R3Value = Integer.toBinaryString(tempA);
+            writeValue=R3Value;
+//            System.out.println("write value f execute" + writeValue);
+            
+//            writeAddress=R3Address;
             break;
 
         case "00011":
@@ -49,6 +53,7 @@ public class Execute {
         case "00100":
             writeAddress = R1Address;
             writeValue = immediate;
+//            System.out.println("write value f execute" + writeValue);
             break;
         case "00101":
             tempA = Integer.parseInt(R1Value, 2) >> Integer.parseInt(immediate, 2);
@@ -107,15 +112,20 @@ public class Execute {
             R2Value=Integer.toBinaryString(tempA);
             writeValue=R2Value;
 
-writeAddress=R2Address;
+            writeAddress=R2Address;
             break;
             
-        case"10100":
-        case "10101":
-            equal= Integer.parseInt(R1Value, 2)== Integer.parseInt(R2Value, 2);
-            break;
-        }
+       
+        
         setterToNext();
+        System.out.println("Exectue");
+        System.out.println("***********");
+        System.out.println("write value " +writeValue);
+        System.out.println("write Address "+ writeAddress);
+        System.out.println("Opcode "+ Opcode);
+        System.out.println("***********");
+        System.out.println();
+        
 
 }
         
@@ -132,7 +142,7 @@ writeAddress=R2Address;
         R3Address = prev.getR3Address();
         immediate = prev.getImmediate();
         writeAddress = prev.getWriteAddress();
-        writeValue = prev.getWriteAddress();
+        writeValue = prev.getWriteValue();
         jump = prev.isJump();
         writeMem = prev.isWriteMem();
         readMem = prev.isReadMem();

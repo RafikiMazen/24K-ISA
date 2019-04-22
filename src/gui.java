@@ -27,6 +27,7 @@ public class gui {
 
 	public String  R1, R2,R3, opcode ;
 	String instToBits;
+	
 	ArrayList <String> instructionList = new ArrayList<String>();
 	Simulation simulation;
 	private JFrame frame;

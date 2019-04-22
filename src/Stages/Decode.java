@@ -68,9 +68,9 @@ public class Decode {
 			R2Address = instruction.substring(10, 15);
 			R2Value = regFile.getFromRegsbyBits(R2Address);
 			R3Address = instruction.substring(15, 20);
-			R3Value = regFile.getFromRegsbyBits(R3Address);
+//			R3Value = regFile.getFromRegsbyBits(R3Address);
 			writeAddress = R3Address;
-			writeValue = R3Value;
+//			writeValue = R3Value;
 			writeReg = true;
 			break;
 		case ("00100"):
@@ -80,7 +80,7 @@ public class Decode {
 			R1Value = regFile.getFromRegsbyBits(R1Address);
 			immediate = instruction.substring(10);
 			writeAddress = R1Address;
-			writeValue = R1Value;
+			writeValue = immediate;
 			writeReg = true;
 			break;
 		case ("00111"):
@@ -137,41 +137,47 @@ public class Decode {
 			writeAddress = R3Address;
 			writeValue = R3Value;
 			writeReg = true;
-		case ("10001"):
-			R1Address = instruction.substring(5, 10);
-			R1Value = regFile.getFromRegsbyBits(R1Address);
-			jumpValue = R1Value;
-			jump = true;
-			break;
-		case ("10010"):
-			R1Address = instruction.substring(5, 10);
-			R1Value = regFile.getFromRegsbyBits(R1Address);
-			R2Address = instruction.substring(10, 15);
-			R2Value = regFile.getFromRegsbyBits(R2Address);
-			writeAddress = R2Address;
-			writeValue = R2Value;
-			jumpValue = R1Value;
-			jump = true;
-			writeReg = true;
-			break;
-		case ("10011"):
-
-			jumpValue = instruction.substring(5);
-			jump = true;
-			break;
-		case ("10100"):
-		case ("10101"):
-			R1Address = instruction.substring(5, 10);
-			R1Value = regFile.getFromRegsbyBits(R1Address);
-			R2Address = instruction.substring(10, 15);
-			R2Value = regFile.getFromRegsbyBits(R2Address);
-			jumpValue = instruction.substring(15);
-			jump = true;
-			break;
+//		case ("10001"):
+//			R1Address = instruction.substring(5, 10);
+//			R1Value = regFile.getFromRegsbyBits(R1Address);
+//			jumpValue = R1Value;
+//			jump = true;
+//			break;
+//		case ("10010"):
+//			R1Address = instruction.substring(5, 10);
+//			R1Value = regFile.getFromRegsbyBits(R1Address);
+//			R2Address = instruction.substring(10, 15);
+//			R2Value = regFile.getFromRegsbyBits(R2Address);
+//			writeAddress = R2Address;
+//			writeValue = R2Value;
+//			jumpValue = R1Value;
+//			jump = true;
+//			writeReg = true;
+//			break;
+//		case ("10011"):
+//
+//			jumpValue = instruction.substring(5);
+//			jump = true;
+//			break;
+//		case ("10100"):
+//		case ("10101"):
+//			R1Address = instruction.substring(5, 10);
+//			R1Value = regFile.getFromRegsbyBits(R1Address);
+//			R2Address = instruction.substring(10, 15);
+//			R2Value = regFile.getFromRegsbyBits(R2Address);
+//			jumpValue = instruction.substring(15);
+//			jump = true;
+//			break;
 		default:
 			System.out.println("Error in decoding!!!!!!!!!");
 		}
 		setterToNext();
+		System.out.println("DECODE");
+		System.out.println("***********");
+		System.out.println("Opcode" + Opcode);
+		System.out.println("writing Address " + writeAddress);
+		System.out.println("***********");
+		System.out.println();
 	}
 	
 	

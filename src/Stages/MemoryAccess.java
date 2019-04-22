@@ -1,5 +1,7 @@
 package Stages;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import Components.PipelineRegister;
 import Components.RegisterFile;
 import main.Memory;
@@ -45,7 +47,7 @@ public void settersFromPrev() {
 		R3Address=prev.getR3Address();
 		immediate=prev.getImmediate();
 		writeAddress=prev.getWriteAddress();
-		writeValue=prev.getWriteAddress();
+		writeValue=prev.getWriteValue();
 		jump=prev.isJump();
 		writeMem=prev.isWriteMem();
 		readMem=prev.isReadMem();
@@ -79,7 +81,9 @@ public void settersFromPrev() {
 		this.prev = excute.next;
 		this.next = new PipelineRegister(4);
 		this.dataMemory = datamemory;
+		System.out.println();
 		settersFromPrev();
+//		System.out.println(writeValue+ " hobba");
 		if(readMem) {
 			writeValue=dataMemory.readFromIndex(Integer.parseInt(prev.getR2Value(),2));
 			writeAddress=prev.getR1Address();
@@ -89,15 +93,21 @@ public void settersFromPrev() {
 			dataMemory.setIntoMemory(Integer.parseInt(prev.getR2Value(),2), R1Value);
 		}
 		
-		if(jump) {
-			
-			regfile.setPC(Integer.parseInt(jumpValue, 2));
-		}
+//		if(jump) {
+//			
+//			regfile.setPC(Integer.parseInt(jumpValue, 2));
+//		}
 		if(Opcode.equals("01111"))
 			{
 				dataMemory.snapFinger();
 			}
 		setterToNext();
+		System.out.println("Memory Access");
+		System.out.println("****************");
+		System.out.println("Writing value "+writeValue);
+		System.out.println("writing Address " + writeAddress);
+		System.out.println("****************");
+		System.out.println();
 			}
 	
 	@Override

@@ -260,7 +260,7 @@ public class PipelineRegister {
 	public void updateValues(Fetch fetch){
 		flag=true;
 		if(type==1) {
-			PC=Integer.toBinaryString(fetch.getInstructionAddress());
+			PC=fetch.getInstruction();
 			IR=fetch.getInstruction();
 		}
 		if(type==2) {
